@@ -99,7 +99,7 @@ include "connection.php";
                                         $data = $rs->fetch_assoc();
                                     ?>
 
-                                        <option value="<?php echo $data["gender_id"]; ?>">
+                                        <option value="<?php echo $data["id"]; ?>">
                                             <?php echo $data["gender_name"]; ?>
                                         </option>
 
