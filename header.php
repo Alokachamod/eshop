@@ -25,8 +25,8 @@
             if(isset($_SESSION["u"])){
                 $data = $_SESSION["u"];
                 ?>
-                <span class="text-lg-start text-success"><b>Hi </b><?php echo $data["fname"]; ?></span> | 
-                <span class="text-lg-start fw-bold signout" onclick="signout();">Signout</span> |
+                <span class="text-lg-start"><b class="text-success">Hi </b><?php echo $data["fname"]; ?></span> | 
+                <span class="text-lg-start text-danger fw-bold signout" onclick="signout();">Sign Out</span> |
                 <?php
 
             }else{

@@ -1,12 +1,12 @@
 <?php
 
-class Database{
+class Database {
 
     public static $connection;
 
     public static function setUpConnection(){
         if(!isset(Database::$connection)){
-            Database::$connection = new mysqli("localhost","root","Shakuloka@.1","eshop","3306");
+            Database::$connection = new mysqli("localhost","root","1234","eshop","3306");
         }
     }
 

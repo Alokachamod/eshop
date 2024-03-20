@@ -4,7 +4,7 @@ session_start();
 include "connection.php";
 
 $sender = $_SESSION["u"]["email"];
-$recever = $_POST["rm"];
+$receiver = $_POST["rm"];
 $msg = $_POST["mt"];
 
 $d = new DateTime();
@@ -13,7 +13,7 @@ $d->setTimezone($tz);
 $date = $d->format("Y-m-d H:i:s");
 
 Database::iud("INSERT INTO `chat`(`content`,`date_time`,`status`,`from`,`to`) VALUES 
-('".$msg."','".$date."','0','".$sender."','".$recever."')");
+('".$msg."','".$date."','0','".$sender."','".$receiver."')");
 
 echo ("success");
 

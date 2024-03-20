@@ -136,6 +136,21 @@ function showPassword2() {
 
 }
 
+function showPw() {
+
+    var textfield = document.getElementById("pw");
+    var button = document.getElementById("pwBtn");
+
+    if (textfield.type == "password") {
+        textfield.type = "text";
+        button.innerHTML = '<i class="bi bi-eye-slash-fill text-white"></i>';
+    } else {
+        textfield.type = "password";
+        button.innerHTML = '<i class="bi bi-eye-fill text-white"></i>';
+    }
+
+}
+
 function resetPassword() {
 
     var email = document.getElementById("email2");
@@ -1112,7 +1127,9 @@ function sendAdminMsg() {
     request.onreadystatechange = function () {
         if (request.status == 200 & request.readyState == 4) {
             var response = request.responseText;
-            alert(response);
+            if (response == "success") {
+                window.location.reload();
+            }
         }
     }
 

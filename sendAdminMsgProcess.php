@@ -26,12 +26,12 @@ if (!empty($receiver)) {
     Database::iud("INSERT INTO `chat`(`content`,`date_time`,`status`,`from`,`to`) VALUES 
     ('" . $msg_txt . "','" . $date . "','0','" . $sender . "','" . $receiver . "')");
 
-    echo ("success1");
+    echo ("success");
 } else {
     Database::iud("INSERT INTO `chat`(`content`,`date_time`,`status`,`from`,`to`) VALUES 
-    ('" . $msg_txt . "','" . $date . "','0','" . $sender . "','lahiru@javainstitute.edu.lk')");
+    ('" . $msg_txt . "','" . $date . "','0','" . $sender . "','pasinduogdev@gmail.com')");
 
-    echo ("success2");
+    echo ("success");
 }
 
 ?>

@@ -91,17 +91,17 @@ include "connection.php";
                                 </div>
                                 <div class="carousel-inner">
                                     <div class="carousel-item active">
-                                        <img src="resource/slider_images/posterimg.jpg" class="d-block img-thumbnail poster-img-1" />
+                                        <img src="resource/slider_images/posterimg.jpg" class="d-block poster-img-1" />
                                         <div class="carousel-caption d-none d-md-block poster-caption">
                                             <h5 class="poster-title">Welcome to eShop</h5>
                                             <p class="poster-txt">The World's Best Online Store By One Click.</p>
                                         </div>
                                     </div>
                                     <div class="carousel-item">
-                                        <img src="resource/slider_images/posterimg2.jpg" class="d-block img-thumbnail poster-img-1" />
+                                        <img src="resource/slider_images/posterimg2.jpg" class="d-block poster-img-1" />
                                     </div>
                                     <div class="carousel-item">
-                                        <img src="resource/slider_images/posterimg3.jpg" class="d-block img-thumbnail poster-img-1" />
+                                        <img src="resource/slider_images/posterimg3.jpg" class="d-block poster-img-1" />
                                         <div class="carousel-caption d-none d-md-block poster-caption-1">
                                             <h5 class="poster-title">Be Free.....</h5>
                                             <p class="poster-txt">Experience the Lowest Delivery Costs With Us.</p>

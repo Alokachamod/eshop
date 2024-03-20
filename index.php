@@ -99,7 +99,7 @@ include "connection.php";
                                         $data = $rs->fetch_assoc();
                                     ?>
 
-                                        <option value="<?php echo $data["id"]; ?>">
+                                        <option value="<?php echo $data["gender_id"]; ?>">
                                             <?php echo $data["gender_name"]; ?>
                                         </option>
 
@@ -153,11 +153,11 @@ include "connection.php";
 
                             <div class="col-12">
                                 <label class="form-label">Email</label>
-                                <input type="email" class="form-control" id="email2" value="<?php echo $email; ?>" />
+                                <input type="email" class="form-control" id="email2" value="<?php echo $email; ?>" placeholder="ex:- john@gmail.com" />
                             </div>
                             <div class="col-12">
                                 <label class="form-label">Password</label>
-                                <input type="password" class="form-control" id="password2" value="<?php echo $password; ?>" />
+                                <input type="password" class="form-control" id="password2" value="<?php echo $password; ?>" placeholder="ex:- **********" />
                             </div>
                             <div class="col-6">
                                 <div class="form-check">
