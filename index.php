@@ -202,7 +202,7 @@ include "connection.php";
                                 <div class="col-6">
                                     <label class="form-label">New Password</label>
                                     <div class="input-group mb-3">
-                                        <input type="password" class="form-control" id="np"/>
+                                        <input type="password" class="form-control" id="np" />
                                         <button id="npb" class="btn btn-outline-secondary" type="button" onclick="showPassword1();">Show</button>
                                     </div>
                                 </div>
@@ -210,14 +210,14 @@ include "connection.php";
                                 <div class="col-6">
                                     <label class="form-label">Re-type Password</label>
                                     <div class="input-group mb-3">
-                                        <input type="password" class="form-control" id="rnp"/>
+                                        <input type="password" class="form-control" id="rnp" />
                                         <button id="rnpb" class="btn btn-outline-secondary" type="button" onclick="showPassword2();">Show</button>
                                     </div>
                                 </div>
 
                                 <div class="col-12">
                                     <label class="form-label">Verification Code</label>
-                                    <input type="text" class="form-control" id="vcode"/>
+                                    <input type="text" class="form-control" id="vcode" />
                                 </div>
 
                             </div>
