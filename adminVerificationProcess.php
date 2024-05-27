@@ -19,7 +19,7 @@ if(isset($_POST["e"])){
 
         $code = uniqid();
 
-        Database::iud("UPDATE `admin` SET `vcode`='".$code."' WHERE `email`='".$email."'");
+        Database::iud("UPDATE `admin` SET `verification_code`='".$code."' WHERE `email`='".$email."'");
 
         $mail = new PHPMailer;
         $mail->IsSMTP();

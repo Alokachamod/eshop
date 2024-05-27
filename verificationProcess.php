@@ -6,7 +6,7 @@ if(isset($_POST["c"])){
 
     $v = $_POST["c"];
 
-    $admin_rs = Database::search("SELECT * FROM `admin` WHERE `vcode`='".$v."'");
+    $admin_rs = Database::search("SELECT * FROM `admin` WHERE `verification_code`='".$v."'");
     $admin_num = $admin_rs->num_rows;
 
     if($admin_num == 1){
