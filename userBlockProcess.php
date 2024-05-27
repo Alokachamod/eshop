@@ -1,6 +1,6 @@
 <?php
 
-include "connection.php";
+require "connection.php";
 
 if(isset($_GET["email"])){
 
@@ -13,12 +13,12 @@ if(isset($_GET["email"])){
 
         $user_data = $user_rs->fetch_assoc();
 
-        if($user_data["status_status_id"] == 1){
-            Database::iud("UPDATE `user` SET `status_status_id`='2' WHERE `email`='".$user_email."'");
-            echo ($user_data["fname"]." ".$user_data["lname"]." blocked.");
-        }else if($user_data["status_status_id"] == 2){
-            Database::iud("UPDATE `user` SET `status_status_id`='1' WHERE `email`='".$user_email."'");
-            echo ($user_data["fname"]." ".$user_data["lname"]." unblocked.");
+        if($user_data["status"] == 1){
+            Database::iud("UPDATE `user` SET `status`= '0' WHERE `email`='".$user_email."'");
+            echo ("blocked");
+        }else if($user_data["status"] == 0){
+            Database::iud("UPDATE `user` SET `status`= '1' WHERE `email`='".$user_email."'");
+            echo ("unblocked");
         }
 
     }else{
@@ -26,7 +26,7 @@ if(isset($_GET["email"])){
     }
 
 }else{
-    echo ("Something went wrong");
+    echo ("Something went wrong.");
 }
 
 ?>

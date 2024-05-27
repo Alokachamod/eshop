@@ -1,0 +1,45 @@
+<div class="col-12 col-lg-3">
+                            <div class="row">
+
+                                <div class="col-12">
+                                    <label class="form-label fs-3 fw-bold">Summary</label>
+                                </div>
+
+                                <div class="col-12">
+                                    <hr />
+                                </div>
+
+                                <div class="col-6 mb-3">
+                                    <span class="fs-6 fw-bold">items (1)</span>
+                                </div>
+
+                                <div class="col-6 text-end mb-3">
+                                    <span class="fs-6 fw-bold">Rs. 100000 .00</span>
+                                </div>
+
+                                <div class="col-6">
+                                    <span class="fs-6 fw-bold">Shipping</span>
+                                </div>
+
+                                <div class="col-6 text-end">
+                                    <span class="fs-6 fw-bold">Rs. 400 .00</span>
+                                </div>
+
+                                <div class="col-12 mt-3">
+                                    <hr />
+                                </div>
+
+                                <div class="col-6 mt-2">
+                                    <span class="fs-4 fw-bold">Total</span>
+                                </div>
+
+                                <div class="col-6 mt-2 text-end">
+                                    <span class="fs-4 fw-bold">Rs. 100400 .00</span>
+                                </div>
+
+                                <div class="col-12 mt-3 mb-3 d-grid">
+                                    <button class="btn btn-primary fs-5 fw-bold">CHECKOUT</button>
+                                </div>
+
+                            </div>
+                        </div>

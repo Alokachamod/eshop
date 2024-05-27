@@ -1,11 +1,11 @@
-.main-body{
+.main-body {
     background-image: url("resource/background-body.svg");
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
 }
 
-.logo{
+.logo {
     background-image: url("resource/logo.svg");
     height: 100px;
     background-size: contain;
@@ -15,66 +15,67 @@
 
 @font-face {
     font-family: "Quicksand";
-    src: url("font/Quicksand-Medium.ttf");
+    src: url("fonts/Quicksand-Medium.ttf");
 }
 
 @font-face {
     font-family: "Honey";
-    src: url("font/HoneyScript-Light.ttf");
+    src: url("fonts/HoneyScript-Light.ttf")
 }
 
-*{
+* {
     font-family: "Quicksand";
     font-size: 14px;
 }
 
-.title01{
+.title1 {
     font-family: "Honey";
     font-size: 30px;
     letter-spacing: 3px;
 }
 
-.background{
+.background {
     background-image: url("resource/background.svg");
     background-size: contain;
     background-position: center;
     background-repeat: no-repeat;
 }
 
-.title02{
+.title2 {
     font-size: 25px;
     font-weight: bold;
 }
 
 .cart-icon{
-    background-image: url("resource/carticon.svg");
-    background-repeat: no-repeat;
+    background-image:url(resource/cartico.svg);
+    background-repeat:no-repeat;
     background-size: contain;
 }
 
-.poster-img-1{
+.poster-img-1 {
     height: 500px;
     background-repeat: no-repeat;
 }
 
-.poster-caption{
+.poster-caption {
     margin-bottom: 150px;
 }
 
-.poster-caption-1{
-    margin-bottom: 50px;
-    margin-right: 250px;
-}
-
-.poster-title{
-    color: black;
+.poster-title {
     font-size: 50px;
+    color: black;
     font-weight: bold;
 }
 
-.poster-txt{
+.poster-txt {
     font-size: 20px;
     color: gray;
+}
+
+.poster-caption-1{
+    margin-top: 60px;
+    margin-bottom: 70px;
+    margin-right: 100px;
 }
 
 .signout:hover{
@@ -89,19 +90,19 @@
 }
 
 .pm1{
-    background-image: url("resource/payment_method/visa_img.png");
+    background-image: url("resource/payment\ method\ images/visa_img.png");
 }
 
 .pm2{
-    background-image: url("resource/payment_method/mastercard_img.png");
+    background-image: url("resource/payment\ method\ images/mastercard_img.png");
 }
 
 .pm3{
-    background-image: url("resource/payment_method/american_express_img.png");
+    background-image: url("resource/payment\ method\ images/american_express_img.png");
 }
 
 .pm4{
-    background-image: url("resource/payment_method/paypal_img.png");
+    background-image: url("resource/payment\ method\ images/paypal_img.png");
 }
 
 .singleProduct{
@@ -110,16 +111,16 @@
     padding: 20px;
 }
 
-.mainImg{
-    height: 640px;
-    background-image: url("resource/empty.svg");
+.main-img{
+    height: 632px;
+    background-image:url("resource/empty.svg");
+    background-position: center;
     background-size: contain;
     background-repeat: no-repeat;
-    background-position: center;
 }
 
 .product-qty{
-    width: 500px;
+    width: 105px;
     height: 45px;
     padding: 10px;
 }
@@ -150,36 +151,27 @@
 .emptyView{
     height: 400px;
     background-image: url("resource/watchlistEmptyView.svg");
-    background-position: center;
-    background-size: contain;
     background-repeat: no-repeat;
+    background-position: center;
 }
 
 .emptyCart{
     height: 400px;
     background-image: url("resource/emptycart.svg");
     background-position: center;
-    background-size: contain;
     background-repeat: no-repeat;
+    background-size: contain;
 }
 
 .invoiceHeaderImage{
     height: 80px;
     background-image: url("resource/logo.svg");
-    background-size:contain;
     background-repeat: no-repeat;
+    background-size: contain;
 }
 
 .message_box,
 .chat_box{
     height: 510px;
     overflow-y: scroll;
-}
-
-.first-place{
-    height: 90px;
-    background-image: url("resource/firstplace.svg");
-    background-position: center;
-    background-size: contain;
-    background-repeat: no-repeat;
 }

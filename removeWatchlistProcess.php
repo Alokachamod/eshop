@@ -1,23 +1,29 @@
 <?php
 
-include "connection.php";
+require "connection.php";
 
-$list_id = $_GET["id"];
+if(isset($_GET["id"])){
 
-$watchlist_rs = Database::search("SELECT * FROM `watchlist` WHERE `w_id`='".$list_id."'");
-$watchlist_num = $watchlist_rs->num_rows;
+    $wid = $_GET["id"];
 
-if($watchlist_num == 0){
-    echo ("Something went wrong. Please try again later.");
+    $watch_rs = database::search("SELECT * FROM `watchlist` WHERE `id`='".$wid."'");
+    $watch_num = $watch_rs->num_rows;
+    $watch_data = $watch_rs->fetch_assoc();
+
+    if($watch_num == 0){
+        echo ("Something went wrong, Please try again later.");
+    }else{
+
+        Database::iud("INSERT INTO `recent` (`product_id`,`user_email`) VALUES ('".$watch_data["product_id"]."','".$watch_data["user_email"]."')");
+
+        database::iud("DELETE FROM `watchlist` WHERE `id`='".$wid."'");
+
+        echo ("Success");
+
+    }
+
 }else{
-    $watchlist_data = $watchlist_rs->fetch_assoc();
-
-    Database::iud("INSERT INTO `recent`(`product_id`,`user_email`) VALUES 
-                ('".$watchlist_data["product_id"]."','".$watchlist_data["user_email"]."')");
-
-    Database::iud("DELETE FROM `watchlist` WHERE `w_id`='".$list_id."'");
-    echo ("success");
-    
+    echo("Please select a product");
 }
 
 ?>

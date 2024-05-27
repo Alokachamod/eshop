@@ -1,15 +1,15 @@
 <?php
-session_start();
-include "connection.php";
 
-if(isset($_SESSION["u"])){
-    if(isset($_GET["id"])){
+session_start();
+require "connection.php";
+
+if (isset($_SESSION["u"])) {
+    if (isset($_GET["id"])) {
 
         $email = $_SESSION["u"]["email"];
         $pid = $_GET["id"];
 
-        $watchlist_rs = Database::search("SELECT * FROM `watchlist` WHERE `user_email`='".$email."' AND 
-        `product_id`='".$pid."'");
+        $watchlist_rs = Database::search("SELECT * FROM `watchlist` WHERE `product_id`='" . $pid . "' AND `user_email`='" . $email . "'");
         $watchlist_num = $watchlist_rs->num_rows;
 
         if($watchlist_num == 1){
@@ -17,21 +17,19 @@ if(isset($_SESSION["u"])){
             $watchlist_data = $watchlist_rs->fetch_assoc();
             $list_id = $watchlist_data["id"];
 
-            Database::iud("DELETE FROM `watchlist` WHERE `w_id`='".$list_id."'");
-            echo ("removed");
+            Database::iud("DELETE FROM `watchlist` WHERE `id` ='".$list_id."'");
+            echo ("Removed");
 
         }else{
 
-            Database::iud("INSERT INTO `watchlist`(`user_email`,`product_id`) VALUES ('".$email."','".$pid."')");
-            echo ("added");
-            
+            Database::iud("INSERT INTO `watchlist` (`product_id`,`user_email`) VALUES ('".$pid."','".$email."')");
+            echo ("Added");
+
         }
 
-    }else{
-        echo ("Something went wrong. Please try again later.");
+    } else {
+        echo ("Something Went Wrong");
     }
-}else{
-    echo ("Please Login First.");
+} else {
+    echo ("Please Login First");
 }
-
-?>

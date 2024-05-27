@@ -1,26 +1,31 @@
 <?php
-include "connection.php";
 
-$product_id = $_GET["id"];
+require "connection.php";
 
-$product_rs = Database::search("SELECT * FROM `product` WHERE `id`='".$product_id."'");
+$product = $_GET["p"];
+
+$product_rs = Database::search("SELECT * FROM `product` WHERE `id`='".$product."'");
 $product_num = $product_rs->num_rows;
 
 if($product_num == 1){
 
     $product_data = $product_rs->fetch_assoc();
-    $status = $product_data["status_status_id"];
+    $status = $product_data["status_id"];
 
     if($status == 1){
-        Database::iud("UPDATE `product` SET `status_status_id`='2' WHERE `id`='".$product_id."'");
+
+        Database::iud("UPDATE `product` SET `status_id`='2' WHERE `id`='".$product."'");
         echo ("deactivated");
+
     }else if($status == 2){
-        Database::iud("UPDATE `product` SET `status_status_id`='1' WHERE `id`='".$product_id."'");
+
+        Database::iud("UPDATE `product` SET `status_id`='1' WHERE `id`='".$product."'");
         echo ("activated");
+
     }
 
 }else{
-    echo ("Something went wrong. Please try again later.");
+    echo ("Something Went Wrong. Please try again later.");
 }
 
 ?>

@@ -1,18 +1,18 @@
 <?php
+
 session_start();
-include "connection.php";
+require "connection.php";
 
 if(isset($_SESSION["u"])){
 
-    $id = $_GET["id"];
+    $pid = $_GET["id"];
     $qty = $_GET["qty"];
     $umail = $_SESSION["u"]["email"];
 
     $array;
-
     $order_id = uniqid();
 
-    $product_rs = Database::search("SELECT * FROM `product` WHERE `id`='".$id."'");
+    $product_rs = Database::search("SELECT * FROM `product` WHERE `id`='".$pid."'");
     $product_data = $product_rs->fetch_assoc();
 
     $city_rs = Database::search("SELECT * FROM `user_has_address` WHERE `user_email`='".$umail."'");
@@ -22,16 +22,16 @@ if(isset($_SESSION["u"])){
 
         $city_data = $city_rs->fetch_assoc();
 
-        $city_id = $city_data["city_city_id"];
+        $city_id = $city_data["city_id"];
         $address = $city_data["line1"].", ".$city_data["line2"];
 
-        $district_rs = Database::search("SELECT * FROM `city` WHERE `city_id`='".$city_id."'");
+        $district_rs = Database::search("SELECT * FROM `city` WHERE `id`='".$city_id."'");
         $district_data = $district_rs->fetch_assoc();
 
-        $district_id = $district_data["district_district_id"];
+        $district_id = $district_data["district_id"];
         $delivery = "0";
 
-        if($district_id == "2"){
+        if($district_id == "4"){
             $delivery = $product_data["delivery_fee_colombo"];
         }else{
             $delivery = $product_data["delivery_fee_other"];
@@ -43,22 +43,8 @@ if(isset($_SESSION["u"])){
         $fname = $_SESSION["u"]["fname"];
         $lname = $_SESSION["u"]["lname"];
         $mobile = $_SESSION["u"]["mobile"];
-        $uaddress = $address;
-        $city = $district_data["city_name"];
-
-        $merchant_id = "1224051";
-        $merchant_secret = "MzYxNzE4ODc1OTM5MzYxMTM2MzExNTA2MjQ1M";
-        $currency = "LKR";
-
-        $hash = strtoupper(
-            md5(
-                $merchant_id . 
-                $order_id . 
-                number_format($amount, 2, '.', '') . 
-                $currency .  
-                strtoupper(md5($merchant_secret)) 
-            ) 
-        );
+        $user_address = $address;
+        $city = $district_data["name"];
 
         $array["id"] = $order_id;
         $array["item"] = $item;
@@ -66,13 +52,9 @@ if(isset($_SESSION["u"])){
         $array["fname"] = $fname;
         $array["lname"] = $lname;
         $array["mobile"] = $mobile;
-        $array["address"] = $uaddress;
+        $array["address"] = $user_address;
         $array["city"] = $city;
-        $array["umail"] = $umail;
-        $array["mid"] = $merchant_id;
-        $array["msecret"] = $merchant_secret;
-        $array["currency"] = $currency;
-        $array["hash"] = $hash;
+        $array["mail"] = $umail;
 
         echo json_encode($array);
 

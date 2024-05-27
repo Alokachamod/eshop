@@ -1,83 +1,82 @@
 function changeView() {
+
     var signUpBox = document.getElementById("signUpBox");
     var signInBox = document.getElementById("signInBox");
 
     signUpBox.classList.toggle("d-none");
     signInBox.classList.toggle("d-none");
+
 }
 
-function signup() {
-    var fname = document.getElementById("fname");
-    var lname = document.getElementById("lname");
-    var email = document.getElementById("email");
-    var password = document.getElementById("password");
-    var mobile = document.getElementById("mobile");
-    var gender = document.getElementById("gender");
+function signUp() {
 
-    var form = new FormData();
-    form.append("f", fname.value);
-    form.append("l", lname.value);
-    form.append("e", email.value);
-    form.append("p", password.value);
-    form.append("m", mobile.value);
-    form.append("g", gender.value);
+    var f = document.getElementById("f");
+    var l = document.getElementById("l");
+    var e = document.getElementById("e");
+    var p = document.getElementById("p");
+    var m = document.getElementById("m");
+    var g = document.getElementById("g");
+
+    var form = new FormData;
+    form.append("f", f.value);
+    form.append("l", l.value);
+    form.append("e", e.value);
+    form.append("p", p.value);
+    form.append("m", m.value);
+    form.append("g", g.value);
 
     var request = new XMLHttpRequest();
 
     request.onreadystatechange = function () {
-        if (request.status == 200 & request.readyState == 4) {
-            var response = request.responseText;
-
-            if (response == "success") {
-                document.getElementById("msg").innerHTML = "Registration Successfull";
-                document.getElementById("msg").className = "alert alert-success";
+        if (request.readyState == 4) {
+            var text = request.responseText;
+            if (text == "success") {
+                document.getElementById("msg").innerHTML = text;
+                document.getElementById("msg").className = "bi bi-check2-circle fs-5";
+                document.getElementById("alertdiv").className = "alert alert-success";
                 document.getElementById("msgdiv").className = "d-block";
             } else {
-                document.getElementById("msg").innerHTML = response;
-                document.getElementById("msgdiv").className = "d-block";
+                document.getElementById("msg").innerHTML = text;
+                document.getElementById("msgdiv").className = "d-block"
             }
-
         }
     }
 
-    request.open("POST", "signupProcess.php", true);
+    request.open("POST", "signUpProcess.php", true);
     request.send(form);
+
 }
 
-function signin() {
+function signIn() {
 
     var email = document.getElementById("email2");
     var password = document.getElementById("password2");
     var rememberme = document.getElementById("rememberme");
 
-    var form = new FormData();
-    form.append("e", email.value);
-    form.append("p", password.value);
-    form.append("r", rememberme.checked);
+    var f = new FormData();
+    f.append("e", email.value);
+    f.append("p", password.value);
+    f.append("r", rememberme.checked);
 
-    var request = new XMLHttpRequest();
+    var r = new XMLHttpRequest();
 
-    request.onreadystatechange = function () {
-        if (request.status == 200 & request.readyState == 4) {
-            var response = request.responseText;
-
-            if (response == "success") {
+    r.onreadystatechange = function () {
+        if (r.readyState == 4) {
+            var t = r.responseText;
+            if (t == "success") {
                 window.location = "home.php";
             } else {
-                document.getElementById("msg1").innerHTML = response;
-                document.getElementById("msgdiv1").className = "d-block";
+                document.getElementById("msg2").innerHTML = t;
             }
-
         }
     }
 
-    request.open("POST", "signInProcess.php", true);
-    request.send(form);
+    r.open("POST", "signInProcess.php", true);
+    r.send(f);
 
 }
 
-var forgotPasswordModal;
-
+var bm;
 function forgotPassword() {
 
     var email = document.getElementById("email2");
@@ -85,136 +84,124 @@ function forgotPassword() {
     var request = new XMLHttpRequest();
 
     request.onreadystatechange = function () {
-        if (request.status == 200 & request.readyState == 4) {
-            var text = request.responseText;
-
-            if (text == "Success") {
-                alert("Verification code has sent successfully. Please check your Email.");
-                var modal = document.getElementById("fpmodal");
-                forgotPasswordModal = new bootstrap.Modal(modal);
-                forgotPasswordModal.show();
+        if (request.readyState == 4) {
+            var response = request.responseText;
+            if (response == "Success") {
+                alert("Verification Code Has Sent To Your Email. Please Check Your Email");
+                var m = document.getElementById("forgotPasswordModal");
+                bm = new bootstrap.Modal(m);
+                bm.show();
             } else {
-                document.getElementById("msg1").innerHTML = text;
-                document.getElementById("msgdiv1").className = "d-block";
+                alert(response);
             }
-
         }
-    }
+    };
 
     request.open("GET", "forgotPasswordProcess.php?e=" + email.value, true);
     request.send();
-
 }
 
 function showPassword1() {
 
-    var textfield = document.getElementById("np");
-    var button = document.getElementById("npb");
+    var i = document.getElementById("npi");
+    var eye = document.getElementById("e1");
 
-    if (textfield.type == "password") {
-        textfield.type = "text";
-        button.innerHTML = "Hide";
+    if (i.type == "password") {
+        i.type = "text";
+        eye.className = "bi bi-eye-fill";
     } else {
-        textfield.type = "password";
-        button.innerHTML = "Show";
+        i.type = "password";
+        eye.className = "bi bi-eye-slash-fill";
     }
 
 }
 
 function showPassword2() {
 
-    var textfield = document.getElementById("rnp");
-    var button = document.getElementById("rnpb");
+    var i = document.getElementById("rnp");
+    var eye = document.getElementById("e2");
 
-    if (textfield.type == "password") {
-        textfield.type = "text";
-        button.innerHTML = "Hide";
+    if (i.type == "password") {
+        i.type = "text";
+        eye.className = "bi bi-eye-fill";
     } else {
-        textfield.type = "password";
-        button.innerHTML = "Show";
+        i.type = "password";
+        eye.className = "bi bi-eye-slash-fill";
     }
 
 }
 
-function showPw() {
-
-    var textfield = document.getElementById("pw");
-    var button = document.getElementById("pwBtn");
-
-    if (textfield.type == "password") {
-        textfield.type = "text";
-        button.innerHTML = '<i class="bi bi-eye-slash-fill text-white"></i>';
-    } else {
-        textfield.type = "password";
-        button.innerHTML = '<i class="bi bi-eye-fill text-white"></i>';
-    }
-
-}
-
-function resetPassword() {
+function resetpw() {
 
     var email = document.getElementById("email2");
-    var newPassword = document.getElementById("np");
-    var retypePassword = document.getElementById("rnp");
-    var verification = document.getElementById("vcode");
+    var np = document.getElementById("npi");
+    var rnp = document.getElementById("rnp");
+    var vcode = document.getElementById("vc");
 
-    var form = new FormData();
-    form.append("e", email.value);
-    form.append("n", newPassword.value);
-    form.append("r", retypePassword.value);
-    form.append("v", verification.value);
+    var f = new FormData();
+    f.append("e", email.value);
+    f.append("n", np.value);
+    f.append("r", rnp.value);
+    f.append("v", vcode.value);
 
-    var request = new XMLHttpRequest();
+    var r = new XMLHttpRequest();
 
-    request.onreadystatechange = function () {
-        if (request.status == 200 & request.readyState == 4) {
-            var response = request.responseText;
-            if (response == "success") {
-                alert("Password updated successfully.");
-                forgotPasswordModal.hide();
+    r.onreadystatechange = function () {
+        if (r.readyState == 4) {
+            var t = r.responseText;
+            if (t == "success") {
+
+                bm.hide();
+                alert("Password reset success");
+
             } else {
-                alert(response);
+                alert(t);
             }
-        }
-    }
 
-    request.open("POST", "resetPasswordProcess.php", true);
-    request.send(form);
+        }
+    };
+
+    r.open("POST", "resetPassword.php", true);
+    r.send(f);
 
 }
 
 function signout() {
 
-    var request = new XMLHttpRequest();
+    var r = new XMLHttpRequest();
 
-    request.onreadystatechange = function () {
-        if (request.status == 200 & request.readyState == 4) {
-            var response = request.responseText;
-            if (response == "success") {
+    r.onreadystatechange = function () {
+        if (r.readyState == 4) {
+            var t = r.responseText;
+            if (t == "success") {
+
+                // window.location = "home.php";
                 window.location.reload();
+
+            } else {
+                alert(t);
             }
         }
-    }
+    };
 
-    request.open("GET", "signOutProcess.php", true);
-    request.send();
+    r.open("GET", "signoutProcess.php", true);
+    r.send();
 
 }
 
-function changeProfileImg() {
-    var img = document.getElementById("profileimage");
+function changeImage() {
+    var view = document.getElementById("viewImg");//img tag
+    var file = document.getElementById("profileimg");//file chooser
 
-    img.onchange = function () {
-        var file = this.files[0];
-        var url = window.URL.createObjectURL(file);
-
-        document.getElementById("img").src = url;
+    file.onchange = function () {
+        var file1 = this.files[0];
+        var url = window.URL.createObjectURL(file1);
+        view.src = url;
     }
 
 }
 
 function updateProfile() {
-
     var fname = document.getElementById("fname");
     var lname = document.getElementById("lname");
     var mobile = document.getElementById("mobile");
@@ -224,101 +211,46 @@ function updateProfile() {
     var district = document.getElementById("district");
     var city = document.getElementById("city");
     var pcode = document.getElementById("pcode");
-    var image = document.getElementById("profileimage");
+    var image = document.getElementById("profileimg");
 
-    var form = new FormData();
+    var f = new FormData();
+    f.append("fn", fname.value);
+    f.append("ln", lname.value);
+    f.append("m", mobile.value);
+    f.append("l1", line1.value);
+    f.append("l2", line2.value);
+    f.append("p", province.value);
+    f.append("d", district.value);
+    f.append("c", city.value);
+    f.append("pc", pcode.value);
 
-    form.append("f", fname.value);
-    form.append("l", lname.value);
-    form.append("m", mobile.value);
-    form.append("l1", line1.value);
-    form.append("l2", line2.value);
-    form.append("p", province.value);
-    form.append("d", district.value);
-    form.append("c", city.value);
-    form.append("pc", pcode.value);
-    form.append("i", image.files[0]);
+    if (image.files.length == 0) {
 
-    var request = new XMLHttpRequest();
+        var confirmation = confirm("Are you sure You don't want to update Profile Image?");
 
-    request.onreadystatechange = function () {
-        if (request.status == 200 & request.readyState == 4) {
-            var response = request.responseText;
-
-            if (response == "Updated" || response == "Saved") {
-                window.location.reload();
-            } else if (response == "You have not selected any image.") {
-                alert("You have not selected any image.");
-                window.location.reload();
-            } else {
-                alert(response);
-            }
-
+        if (confirmation) {
+            alert("you have not selected any image.");
         }
+
+    } else {
+        f.append("image", image.files[0]);
     }
 
-    request.open("POST", "updateProfileProcess.php", true);
-    request.send(form);
+    var r = new XMLHttpRequest();
 
-}
-
-function addProduct() {
-    var category = document.getElementById("category");
-    var brand = document.getElementById("brand");
-    var model = document.getElementById("model");
-    var title = document.getElementById("title");
-    var condition = 0;
-
-    if (document.getElementById("b").checked) {
-        condition = 1;
-    } else if (document.getElementById("u").checked) {
-        condition = 2;
-    }
-
-    var clr = document.getElementById("clr");
-    var qty = document.getElementById("qty");
-    var cost = document.getElementById("cost");
-    var dwc = document.getElementById("dwc");
-    var doc = document.getElementById("doc");
-    var desc = document.getElementById("desc");
-    var image = document.getElementById("imageuploader");
-
-    var form = new FormData();
-    form.append("ca", category.value);
-    form.append("b", brand.value);
-    form.append("m", model.value);
-    form.append("t", title.value);
-    form.append("con", condition);
-    form.append("col", clr.value);
-    form.append("q", qty.value);
-    form.append("co", cost.value);
-    form.append("dwc", dwc.value);
-    form.append("doc", doc.value);
-    form.append("de", desc.value);
-
-    var file_count = image.files.length;
-
-    for (var x = 0; x < file_count; x++) {
-        form.append("image" + x, image.files[x]);
-    }
-
-    var request = new XMLHttpRequest();
-
-    request.onreadystatechange = function () {
-        if (request.status == 200 & request.readyState == 4) {
-            var response = request.responseText;
-
-            if (response == "success") {
-                alert("Product Saved Successfully.");
+    r.onreadystatechange = function () {
+        if (r.readyState == 4) {
+            var t = r.responseText;
+            if (t == "success") {
                 window.location.reload();
             } else {
-                alert(response);
+                alert(t);
             }
         }
     }
 
-    request.open("POST", "addProductProcess.php", true);
-    request.send(form);
+    r.open("POST", "updateProfileProcess.php", true);
+    r.send(f);
 }
 
 function changeProductImage() {
@@ -326,12 +258,12 @@ function changeProductImage() {
     var image = document.getElementById("imageuploader");
 
     image.onchange = function () {
+
         var file_count = image.files.length;
 
         if (file_count <= 3) {
 
             for (var x = 0; x < file_count; x++) {
-
                 var file = this.files[x];
                 var url = window.URL.createObjectURL(file);
 
@@ -339,30 +271,121 @@ function changeProductImage() {
             }
 
         } else {
-            alert(file_count + " files. You are proceed to upload only 3 or less than 3 files.");
+            alert("please select 3 or less than 3 images");
         }
-    }
 
+    }
 }
 
-function changeStatus(id) {
-    var product_id = id;
+function addProduct() {
+    var category = document.getElementById("category");
+    var brand = document.getElementById("brand");
+    var model = document.getElementById("model");
+    var title = document.getElementById("title");
 
-    var request = new XMLHttpRequest();
+    var condition = 0;
+    if (document.getElementById("b").checked) {
+        condition = 1;
+    } else if (document.getElementById("u").checked) {
+        condition = 2;
+    }
 
-    request.onreadystatechange = function () {
-        if (request.status == 200 & request.readyState == 4) {
-            var response = request.responseText;
-            if (response == "deactivated" || response == "activated") {
+    var colour = document.getElementById("clr");
+    var colour_input = document.getElementById("clr_in");
+    var qty = document.getElementById("qty");
+    var cost = document.getElementById("cost");
+    var dwc = document.getElementById("dwc");
+    var doc = document.getElementById("doc");
+    var desc = document.getElementById("desc");
+    var image = document.getElementById("imageuploader");
+
+    var f = new FormData();
+
+    f.append("ca", category.value);
+    f.append("b", brand.value);
+    f.append("m", model.value);
+    f.append("t", title.value);
+    f.append("con", condition);
+    f.append("col", colour.value);
+    f.append("col_in", colour_input.value);
+    f.append("qty", qty.value);
+    f.append("cost", cost.value);
+    f.append("dwc", dwc.value);
+    f.append("doc", doc.value);
+    f.append("desc", desc.value);
+
+    var file_count = image.files.length;
+
+    for (var x = 0; x < file_count; x++) {
+        f.append("image" + x, image.files[x]);
+    }
+
+    var r = new XMLHttpRequest();
+
+    r.onreadystatechange = function () {
+        if (r.readyState == 4) {
+            var t = r.responseText;
+            if (t == "Product image saved successfully") {
                 window.location.reload();
             } else {
-                alert(response);
+                alert(t);
             }
         }
     }
 
-    request.open("GET", "changeStatusProcess.php?id=" + product_id, true);
-    request.send();
+    r.open("POST", "addProductProcess.php", true);
+    r.send(f);
+}
+
+function load_brand() {
+
+    var category = document.getElementById("category").value;
+
+    var r = new XMLHttpRequest();
+
+    r.onreadystatechange = function () {
+        if (r.readyState == 4) {
+            var t = r.responseText;
+
+            document.getElementById("brand").innerHTML = t;
+
+        }
+    }
+
+    r.open("GET", "loadBrand.php?c=" + category, true);
+    r.send();
+
+}
+
+function changeStatus(id) {
+
+    var product_id = id;
+
+    var r = new XMLHttpRequest();
+
+    r.onreadystatechange = function () {
+        if (r.readyState == 4) {
+            var t = r.responseText;
+
+            if (t == "deactivated") {
+
+                alert("Product Deactivated");
+                window.location.reload();
+
+            } else if (t == "activated") {
+
+                alert("Product Activated");
+                window.location.reload();
+
+            } else {
+                alert(t);
+            }
+
+        }
+    }
+
+    r.open("GET", "changeStatusProcess.php?p=" + product_id, true);
+    r.send();
 
 }
 
@@ -393,48 +416,50 @@ function sort1(x) {
         condition = "2";
     }
 
-    var form = new FormData();
-    form.append("s", search.value);
-    form.append("t", time);
-    form.append("q", qty);
-    form.append("c", condition);
-    form.append("page", x);
+    var f = new FormData();
+    f.append("s", search.value);
+    f.append("t", time);
+    f.append("q", qty);
+    f.append("c", condition);
+    f.append("page", x);
 
-    var request = new XMLHttpRequest();
+    var r = new XMLHttpRequest();
 
-    request.onreadystatechange = function () {
-        if (request.status == 200 & request.readyState == 4) {
-            var response = request.responseText;
-            document.getElementById("sort").innerHTML = response;
+    r.onreadystatechange = function () {
+        if (r.readyState == 4) {
+            var t = r.responseText;
+
+            document.getElementById("sort").innerHTML = t;
+
         }
     }
 
-    request.open("POST", "sortProcess.php", true);
-    request.send(form);
+    r.open("POST", "sortProcess.php", true);
+    r.send(f);
+
 }
 
 function clearSort() {
     window.location.reload();
 }
 
-function sendid(id) {
+function sendId(id) {
 
-    var request = new XMLHttpRequest();
+    var r = new XMLHttpRequest();
 
-    request.onreadystatechange = function () {
-        if (request.status == 200 & request.readyState == 4) {
-            var response = request.responseText;
-
-            if (response == "Success") {
+    r.onreadystatechange = function () {
+        if (r.readyState == 4) {
+            var t = r.responseText;
+            if (t == "success") {
                 window.location = "updateProduct.php";
             } else {
-                alert(response);
+                alert(t);
             }
         }
     }
 
-    request.open("GET", "sendIdProcess.php?id=" + id, true);
-    request.send();
+    r.open("GET", "sendProductIdProcess.php?id=" + id, true);
+    r.send();
 
 }
 
@@ -442,40 +467,35 @@ function updateProduct() {
 
     var title = document.getElementById("t");
     var qty = document.getElementById("q");
-    var dwc = document.getElementById("dwc");
-    var doc = document.getElementById("doc");
+    var delivery_within_colombo = document.getElementById("dwc");
+    var delivery_outof_colombo = document.getElementById("doc");
     var description = document.getElementById("d");
     var images = document.getElementById("imageuploader");
 
-    var form = new FormData();
-    form.append("t", title.value);
-    form.append("q", qty.value);
-    form.append("dwc", dwc.value);
-    form.append("doc", doc.value);
-    form.append("d", description.value);
+    var f = new FormData();
+    f.append("t", title.value);
+    f.append("q", qty.value);
+    f.append("dwc", delivery_within_colombo.value);
+    f.append("doc", delivery_outof_colombo.value);
+    f.append("d", description.value);
 
-    var file_count = images.files.length;
+    var img_count = images.files.length;
 
-    for (var x = 0; x < file_count; x++) {
-        form.append("i" + x, images.files[x]);
+    for (var x = 0; x < img_count; x++) {
+        f.append("i" + x, images.files[x]);
     }
 
-    var request = new XMLHttpRequest();
+    var r = new XMLHttpRequest();
 
-    request.onreadystatechange = function () {
-        if (request.status == 200 & request.readyState == 4) {
-            var response = request.responseText;
-            if (response == "Product has been Updated.") {
-                window.location = "myProducts.php";
-            } else {
-                alert(response);
-            }
-
+    r.onreadystatechange = function () {
+        if (r.readyState == 4) {
+            var t = r.responseText;
+            alert(t);
         }
     }
 
-    request.open("POST", "updateProductProcess.php", true);
-    request.send(form);
+    r.open("POST", "updateProcess.php", true);
+    r.send(f);
 
 }
 
@@ -484,30 +504,29 @@ function basicSearch(x) {
     var txt = document.getElementById("basic_search_txt");
     var select = document.getElementById("basic_search_select");
 
-    var form = new FormData();
-    form.append("t", txt.value);
-    form.append("s", select.value);
-    form.append("page", x);
+    var f = new FormData();
+    f.append("t", txt.value);
+    f.append("s", select.value);
+    f.append("page", x);
 
-    var request = new XMLHttpRequest();
+    var r = new XMLHttpRequest();
 
-    request.onreadystatechange = function () {
-        if (request.status == 200 & request.readyState == 4) {
-            var response = request.responseText;
-            document.getElementById("basicSearchResult").innerHTML = response;
+    r.onreadystatechange = function () {
+        if (r.readyState == 4) {
+            var t = r.responseText;
+            document.getElementById("basicSearchResult").innerHTML = t;
         }
     }
 
-    request.open("POST", "basicSearchProcess.php", true);
-    request.send(form);
+    r.open("POST", "basicSearchProcess.php", true);
+    r.send(f);
 
 }
 
 function advancedSearch(x) {
-
     var txt = document.getElementById("t");
     var category = document.getElementById("c1");
-    var brand = document.getElementById("b1");
+    var brand = document.getElementById("b");
     var model = document.getElementById("m");
     var condition = document.getElementById("c2");
     var color = document.getElementById("c3");
@@ -515,212 +534,213 @@ function advancedSearch(x) {
     var to = document.getElementById("pt");
     var sort = document.getElementById("s");
 
-    var form = new FormData();
-    form.append("t", txt.value);
-    form.append("cat", category.value);
-    form.append("b", brand.value);
-    form.append("m", model.value);
-    form.append("con", condition.value);
-    form.append("col", color.value);
-    form.append("pf", from.value);
-    form.append("pt", to.value);
-    form.append("s", sort.value);
-    form.append("page", x);
+    var f = new FormData();
+    f.append("t", txt.value);
+    f.append("cat", category.value);
+    f.append("b", brand.value);
+    f.append("m", model.value);
+    f.append("con", condition.value);
+    f.append("col", color.value);
+    f.append("pf", from.value);
+    f.append("to", to.value);
+    f.append("s", sort.value);
+    f.append("page", x);
 
-    var request = new XMLHttpRequest();
+    var r = new XMLHttpRequest();
 
-    request.onreadystatechange = function () {
-        if (request.status == 200 && request.readyState == 4) {
-            var response = request.responseText;
-            document.getElementById("view_area").innerHTML = response;
+    r.onreadystatechange = function () {
+        if (r.readyState == 4) {
+            var t = r.responseText;
+            document.getElementById("view_area").innerHTML = t;
         }
     }
 
-    request.open("POST", "advancedSearchProcess.php", true);
-    request.send(form);
-
+    r.open("POST", "advancedSearchProcess.php", true);
+    r.send(f);
 }
 
 function loadMainImg(id) {
-    var sample_img = document.getElementById("productImg" + id).src;
-    var main_img = document.getElementById("mainImg");
-
-    main_img.style.backgroundImage = "url(" + sample_img + ")";
+    var img = document.getElementById("productImg" + id).src;
+    var main = document.getElementById("main_img");
+    main.style.backgroundImage = "url(" + img + ")";
 }
 
-function check_value(qty) {
-
+function checkValue(qty) {
     var input = document.getElementById("qty_input");
 
     if (input.value <= 0) {
-        alert("Quantity must be 01 or more.");
+        alert("Quantity must be 1 or more");
         input.value = 1;
     } else if (input.value > qty) {
-        alert("Insufficient Quantity.");
+        alert("Maximum quantity achieved");
         input.value = qty;
     }
-
 }
 
 function qty_inc(qty) {
     var input = document.getElementById("qty_input");
-
     if (input.value < qty) {
         var newValue = parseInt(input.value) + 1;
-        input.value = newValue;
+        input.value = newValue.toString();
     } else {
-        alert("Maximum quantity has achieved.");
-        input.value = qty;
+        alert("Maximum quantity has achieved");
     }
-
 }
 
 function qty_dec() {
     var input = document.getElementById("qty_input");
-
     if (input.value > 1) {
         var newValue = parseInt(input.value) - 1;
-        input.value = newValue;
+        input.value = newValue.toString();
     } else {
-        alert("Minimum quantity has achieved.");
+        alert("minimum quantity has achieved");
         input.value = 1;
     }
 }
 
 function addToWatchlist(id) {
+    var r = new XMLHttpRequest();
 
-    var request = new XMLHttpRequest();
-
-    request.onreadystatechange = function () {
-        if (request.status == 200 & request.readyState == 4) {
-            var response = request.responseText;
-
-            if (response == "added") {
-                document.getElementById("heart" + id).style.className = "text-danger";
-                window.location.reload();
-            } else if (response == "removed") {
+    r.onreadystatechange = function () {
+        if (r.readyState == 4) {
+            var t = r.responseText;
+            if (t == "removed") {
                 document.getElementById("heart" + id).style.className = "text-dark";
                 window.location.reload();
+            } else if (t == "added") {
+                document.getElementById("heart" + id).style.className = "text-danger";
+                window.location.reload();
             } else {
-                alert(response);
+                alert(t);
             }
-
         }
     }
 
-    request.open("GET", "addToWatchlistProcess.php?id=" + id, true);
-    request.send();
-
+    r.open("GET", "addToWatchlistProcess.php?id=" + id, true);
+    r.send();
 }
 
 function removeFromWatchlist(id) {
 
-    var request = new XMLHttpRequest();
+    var r = new XMLHttpRequest();
 
-    request.onreadystatechange = function () {
-        if (request.status == 200 && request.readyState == 4) {
-            var response = request.responseText;
-            if (response == "success") {
+    r.onreadystatechange = function () {
+        if (r.readyState == 4) {
+            var t = r.responseText;
+            if (t == "success") {
                 window.location.reload();
             } else {
-                alert(response);
+                alert(t);
             }
         }
     }
 
-    request.open("GET", "removeWatchlistProcess.php?id=" + id, true);
-    request.send();
+    r.open("GET", "removeWatchlistProcess.php?id=" + id, true);
+    r.send();
 
 }
 
 function addToCart(id) {
+    var r = new XMLHttpRequest();
 
-    var request = new XMLHttpRequest();
-
-    request.onreadystatechange = function () {
-        if (request.status == 200 & request.readyState == 4) {
-            var response = request.responseText;
-            alert(response);
+    r.onreadystatechange = function () {
+        if (r.readyState == 4) {
+            var t = r.responseText;
+            alert(t);
         }
     }
 
-    request.open("GET", "addToCartProcess.php?id=" + id, true);
-    request.send();
-
-}
-
-function changeQTY(id) {
-    var qty = document.getElementById("qty_num").value;
-
-    var request = new XMLHttpRequest();
-
-    request.onreadystatechange = function () {
-        if (request.status == 200 & request.readyState == 4) {
-            var response = request.responseText;
-            if (response == "Updated") {
-                window.location.reload();
-            } else {
-                alert(response);
-            }
-        }
-    }
-
-    request.open("GET", "cartQtyUpdateProcess.php?qty=" + qty + "&id=" + id, true);
-    request.send();
-
+    r.open("GET", "addToCartProcess.php?id=" + id, true);
+    r.send();
 }
 
 function deleteFromCart(id) {
 
-    var request = new XMLHttpRequest();
+    var r = new XMLHttpRequest();
 
-    request.onreadystatechange = function () {
-        if (request.status == 200 & request.readyState == 4) {
-            var response = request.responseText;
-            if (response == "Removed") {
-                alert("Product removed from Cart.");
+    r.onreadystatechange = function () {
+        if (r.readyState == 4) {
+            var t = r.responseText;
+            if (t == "success") {
+                alert("Product removed from cart");
                 window.location.reload();
             } else {
-                alert(response);
+                alert(t);
             }
         }
     }
 
-    request.open("GET", "deleteFromCartProcess.php?id=" + id, true);
-    request.send();
+    r.open("GET", "deleteFromCartProcess.php?id=" + id, true);
+    r.send();
 
 }
 
-function payNow(id) {
+function viewMessages(email) {
+    var r = new XMLHttpRequest();
 
+    r.onreadystatechange = function () {
+        if (r.readyState == 4) {
+            var t = r.responseText;
+            document.getElementById("chat_box").innerHTML = t;
+        }
+    }
+
+    r.open("GET", "viewMsgProcess.php?e=" + email, true);
+    r.send();
+}
+
+function send_msg() {
+    var recevr_mail = document.getElementById("rmail");
+    var msg_txt = document.getElementById("msg_txt");
+
+    var f = new FormData();
+    f.append("rm", recevr_mail.innerHTML);
+    f.append("mt", msg_txt.value);
+
+    var r = new XMLHttpRequest();
+
+    r.onreadystatechange = function () {
+        if (r.readyState == 4) {
+            var t = r.responseText;
+            if (t == "success") {
+                document.getElementById("chat_box").reload();
+            } else {
+                alert(t);
+            }
+        }
+    }
+
+    r.open("POST", "sendMsgProcess.php", true);
+    r.send(f);
+}
+
+function payNow(id) {
     var qty = document.getElementById("qty_input").value;
 
-    var request = new XMLHttpRequest();
+    var r = new XMLHttpRequest();
 
-    request.onreadystatechange = function () {
-        if (request.status == 200 & request.readyState == 4) {
-            var response = request.responseText;
+    r.onreadystatechange = function () {
+        if (r.readyState == 4) {
+            var t = r.responseText;
+            var obj = JSON.parse(t);
 
-            var obj = JSON.parse(response);
-
-            var mail = obj["umail"];
+            var mail = obj["mail"];
             var amount = obj["amount"];
 
-            if (response == 1) {
-                alert("Please Login.");
+            if (t == "1") {
+                alert("Please log in or sign up");
                 window.location = "index.php";
-            } else if (response == 2) {
-                alert("Please update your profile.");
+            } else if (t == "2") {
+                alert("Please update your profile first");
                 window.location = "userProfile.php";
             } else {
-
                 // Payment completed. It can be a successful failure.
                 payhere.onCompleted = function onCompleted(orderId) {
+
                     console.log("Payment completed. OrderID:" + orderId);
 
-                    alert("Payment completed. OrderID:" + orderId);
                     saveInvoice(orderId, id, mail, amount, qty);
-
+                    // Note: validate the payment and show success or failure page to the customer
                 };
 
                 // Payment window closed
@@ -738,15 +758,14 @@ function payNow(id) {
                 // Put the payment variables here
                 var payment = {
                     "sandbox": true,
-                    "merchant_id": obj["mid"],    // Replace your Merchant ID
-                    "return_url": "http://localhost/eshop/singleProductView.php?id=" + id,     // Important
-                    "cancel_url": "http://localhost/eshop/singleProductView.php?id=" + id,     // Important
+                    "merchant_id": "1221051",    // Replace your Merchant ID
+                    "return_url": "http://localhost/eshop/singleProductView.php?id" + id,     // Important
+                    "cancel_url": "http://localhost/eshop/singleProductView.php?id" + id,     // Important
                     "notify_url": "http://sample.com/notify",
                     "order_id": obj["id"],
                     "items": obj["item"],
-                    "amount": amount + ".00",
+                    "amount": amount,
                     "currency": "LKR",
-                    "hash": obj["hash"], // *Replace with generated hash retrieved from backend
                     "first_name": obj["fname"],
                     "last_name": obj["lname"],
                     "email": mail,
@@ -765,63 +784,67 @@ function payNow(id) {
                 // document.getElementById('payhere-payment').onclick = function (e) {
                 payhere.startPayment(payment);
                 // };
-
             }
 
         }
     }
 
-    request.open("GET", "buyNowProcess.php?id=" + id + "&qty=" + qty, true);
-    request.send();
+    r.open("GET", "buyNowProcess.php?id=" + id + "&qty=" + qty, true)
+    r.send();
+
 }
 
-function saveInvoice(orderId, id, mail, amount, qty) {
+function saveInvoice(orderId, id, amount, mail, qty) {
 
     var form = new FormData();
     form.append("o", orderId);
     form.append("i", id);
-    form.append("m", mail);
     form.append("a", amount);
+    form.append("m", mail);
     form.append("q", qty);
 
-    var request = new XMLHttpRequest();
+    var request = new XMLHttpRequest;
 
     request.onreadystatechange = function () {
-        if (request.status == 200 & request.readyState == 4) {
+        if (request.readyState == 4) {
             var response = request.responseText;
-
-            if (response == "success") {
+            if (response == "1") {
+                // alert("invoice.php?id=" + orderId);
                 window.location = "invoice.php?id=" + orderId;
             } else {
                 alert(response);
             }
         }
-    }
+    };
 
-    request.open("POST", "saveInvoiceProcess.php", true);
+    request.open("POST", "saveInvoice.php", true);
     request.send(form);
 
 }
 
 function printInvoice() {
-    var restorePage = document.body.innerHTML;
+
+    var body = document.body.innerHTML;
     var page = document.getElementById("page").innerHTML;
+
     document.body.innerHTML = page;
     window.print();
-    document.body.innerHTML = restorePage;
+    document.body.innerHTML = body;
+
 }
 
-var m;
+var md;
 function addFeedback(id) {
-    var feedbackModal = document.getElementById("feedbackmodal" + id);
-    m = new bootstrap.Modal(feedbackModal);
-    m.show();
+
+    var feed = document.getElementById("feedbackModal" + id);
+    md = new bootstrap.Modal(feed);
+    md.show();
+
 }
 
 function saveFeedback(id) {
 
     var type;
-
     if (document.getElementById("type1").checked) {
         type = 1;
     } else if (document.getElementById("type2").checked) {
@@ -832,229 +855,192 @@ function saveFeedback(id) {
 
     var feedback = document.getElementById("feed");
 
-    var form = new FormData();
-    form.append("pid", id);
-    form.append("t", type);
-    form.append("f", feedback.value);
+    var f = new FormData();
+    f.append("t", type);
+    f.append("p", id);
+    f.append("f", feedback.value);
 
-    var request = new XMLHttpRequest();
+    var r = new XMLHttpRequest();
 
-    request.onreadystatechange = function () {
-        if (request.status == 200 & request.readyState == 4) {
-            var response = request.responseText;
-            if (response == "success") {
-                alert("Feedback saved.");
-                m.hide();
+    r.onreadystatechange = function () {
+        if (r.readyState == 4) {
+            var t = r.responseText;
+            if (t == "1") {
+                md.hide();
             } else {
-                alert(response);
+                alert(t);
             }
         }
     }
 
-    request.open("POST", "saveFeedbackProcess.php", true);
-    request.send(form);
-
-}
-
-function send_msg() {
-
-    var recever_mail = "0";
-
-    var r2 = document.getElementById("select_user");
-
-    if (r2 == 0) {
-        var r1 = document.getElementById("rmail");
-        recever_mail = r1.innerHTML;
-    } else {
-        recever_mail = r2.value;
-    }
-
-    var msg_txt = document.getElementById("msg_txt");
-
-    var form = new FormData();
-    form.append("rm", recever_mail);
-    form.append("mt", msg_txt.value);
-
-    var request = new XMLHttpRequest();
-
-    request.onreadystatechange = function () {
-        if (request.status == 200 & request.readyState == 4) {
-            var response = request.responseText;
-            if (response == "success") {
-                alert("Message sent.");
-                window.location.reload();
-            } else {
-                alert(response);
-            }
-        }
-    }
-
-    request.open("POST", "sendMsgProcess.php", true);
-    request.send(form);
-
-}
-
-function viewMessage(email) {
-
-    var request = new XMLHttpRequest();
-
-    request.onreadystatechange = function () {
-        if (request.status == 200 & request.readyState == 4) {
-            var response = request.responseText;
-            document.getElementById("chat_box").innerHTML = response;
-            // alert (response);
-        }
-    }
-
-    request.open("GET", "viewMsgProcess.php?e=" + email, true);
-    request.send();
+    r.open("POST", "saveFeedbackProcess.php", true);
+    r.send(f);
 
 }
 
 var av;
 function adminVerification() {
-
     var email = document.getElementById("e");
 
-    var form = new FormData();
-    form.append("e", email.value);
+    var f = new FormData();
+    f.append("e", email.value);
 
-    var request = new XMLHttpRequest();
+    var r = new XMLHttpRequest();
 
-    request.onreadystatechange = function () {
-        if (request.status == 200 & request.readyState == 4) {
-            var response = request.responseText;
-            if (response == "Success") {
-                alert("Please take a look at your email to find the VERIFICATION CODE.");
+    r.onreadystatechange = function () {
+        if (r.readyState == 4) {
+            var t = r.responseText;
+            if (t == "Success") {
                 var adminVerificationModal = document.getElementById("verificationModal");
                 av = new bootstrap.Modal(adminVerificationModal);
                 av.show();
             } else {
-                alert(response);
+                alert(t);
             }
-
         }
     }
 
-    request.open("POST", "adminVerificationProcess.php", true);
-    request.send(form);
-
+    r.open("POST", "adminVerificationProcess.php", true);
+    r.send(f);
 }
 
 function verify() {
+    var verification = document.getElementById("vcode");
 
-    var code = document.getElementById("vcode");
+    var r = new XMLHttpRequest();
 
-    var form = new FormData();
-    form.append("c", code.value);
-
-    var request = new XMLHttpRequest();
-
-    request.onreadystatechange = function () {
-        if (request.status == 200 & request.readyState == 4) {
-            var response = request.responseText;
-            if (response == "success") {
+    r.onreadystatechange = function () {
+        if (r.readyState == 4) {
+            var t = r.responseText;
+            if (t == "success") {
                 av.hide();
                 window.location = "adminPanel.php";
             } else {
-                alert(response);
+                alert(t);
             }
 
         }
     }
 
-    request.open("POST", "verificationProcess.php", true);
-    request.send(form);
-
+    r.open("GET", "verificationProcess.php?v=" + verification.value, true);
+    r.send();
 }
 
 function blockUser(email) {
 
-    var request = new XMLHttpRequest();
+    var request = new XMLHttpRequest;
 
     request.onreadystatechange = function () {
-        if (request.status == 200 & request.readyState == 4) {
+        if (request.readyState == 4) {
             var response = request.responseText;
-            alert(response);
-            window.location.reload();
-        }
-    }
 
-    request.open("GET", "userBlockProcess.php?email=" + email, true);
+            if (response == "Blocked") {
+
+                document.getElementById("ub" + email).innerHTML = "Unblock";
+                document.getElementById("ub" + email).classList = "btn btn-success";
+
+            } else if (response == "Unblocked") {
+
+                document.getElementById("ub" + email).innerHTML = "Block";
+                document.getElementById("ub" + email).classList = "btn btn-danger";
+
+            } else {
+
+                alert(response);
+
+            }
+        }
+    };
+
+    request.open("GET", "blockUserProcess.php?email=" + email, true);
     request.send();
 
 }
 
 var mm;
-
 function viewMsgModal(email) {
+
     var m = document.getElementById("userMsgModal" + email);
     mm = new bootstrap.Modal(m);
     mm.show();
+
 }
 
 function blockProduct(id) {
 
-    var request = new XMLHttpRequest();
+    var request = new XMLHttpRequest;
 
     request.onreadystatechange = function () {
-        if (request.status == 200 & request.readyState == 4) {
+        if (request.readyState == 4) {
             var response = request.responseText;
-            alert(response);
-            window.location.reload();
-        }
-    }
 
-    request.open("GET", "productBlockProcess.php?id=" + id, true);
+            if (response == "Blocked") {
+
+                document.getElementById("ub" + id).innerHTML = "Unblock";
+                document.getElementById("ub" + id).classList = "btn btn-success";
+
+            } else if (response == "Unblocked") {
+
+                document.getElementById("ub" + id).innerHTML = "Block";
+                document.getElementById("ub" + id).classList = "btn btn-danger";
+
+            } else {
+
+                alert(response);
+
+            }
+        }
+    };
+
+    request.open("GET", "blockProductProcess.php?id=" + id, true);
     request.send();
 
 }
 
 var pm;
-
 function viewProductModal(id) {
+
     var m = document.getElementById("viewProductModal" + id);
     pm = new bootstrap.Modal(m);
     pm.show();
+
 }
 
 var cm;
-
 function addNewCategory() {
+
     var m = document.getElementById("addCategoryModal");
-    cm = new bootstrap.Modal(m);
+    var cm = new bootstrap.Modal(m);
     cm.show();
+
 }
 
 var vc;
-var e;
-var n;
-
 function verifyCategory() {
 
     var ncm = document.getElementById("addCategoryVerificationModal");
-    vc = new bootstrap.Modal(ncm);
+    var vc = new bootstrap.Modal(ncm);
 
-    e = document.getElementById("e").value;
-    n = document.getElementById("n").value;
+    var n = document.getElementById("n").value;
+    var e = document.getElementById("e").value;
 
     var form = new FormData();
     form.append("email", e);
     form.append("name", n);
 
-    var request = new XMLHttpRequest();
+    var request = new XMLHttpRequest;
 
     request.onreadystatechange = function () {
-        if (request.status == 200 & request.readyState == 4) {
+        if (request.readyState == 4) {
             var response = request.responseText;
             if (response == "Success") {
-                cm.hide();
+                document.getElementById("addCategoryModal").classList = "d-none";
                 vc.show();
             } else {
                 alert(response);
             }
         }
-    }
+    };
 
     request.open("POST", "addNewCategoryProcess.php", true);
     request.send(form);
@@ -1062,133 +1048,166 @@ function verifyCategory() {
 }
 
 function saveCategory() {
+
     var txt = document.getElementById("txt").value;
+    var n = document.getElementById("n").value;
+    var e = document.getElementById("e").value;
 
     var form = new FormData();
-    form.append("t", txt);
-    form.append("e", e);
-    form.append("n", n);
+    form.append("txt", txt);
+    form.append("email", e);
+    form.append("name", n);
 
-    var request = new XMLHttpRequest();
+
+    var request = new XMLHttpRequest;
 
     request.onreadystatechange = function () {
-        if (request.status == 200 & request.readyState == 4) {
+        if (request.readyState == 4) {
+
             var response = request.responseText;
-            if (response == "success") {
-                vc.hide();
+            if (response == "Success") {
+
+                document.getElementById("addCategoryVerificationModal").classList = "d-none";
                 window.location.reload();
+
             } else {
+
                 alert(response);
+
             }
 
         }
-    }
+    };
 
     request.open("POST", "saveCategoryProcess.php", true);
     request.send(form);
 }
 
-function sendAdminMsg(email) {
-    var txt = document.getElementById("msgtxt");
+function changeInvoiceStatus(id) {
 
-    var form = new FormData();
-    form.append("t", txt.value);
-    form.append("e", email);
-
-    var request = new XMLHttpRequest();
+    var request = new XMLHttpRequest;
 
     request.onreadystatechange = function () {
-        if (request.status == 200 & request.readyState == 4) {
+        if (request.readyState == 4) {
             var response = request.responseText;
-            alert(response);
-        }
-    }
+            if (response == 1) {
+                document.getElementById("btn" + id).innerHTML = "Packing";
+                document.getElementById("btn" + id).classList = "btn btn-outline-warning fw-bold mt-1 mb-1";
+            } else if (response == 2) {
+                document.getElementById("btn" + id).innerHTML = "Dispatch";
+                document.getElementById("btn" + id).classList = "btn btn-outline-info fw-bold mt-1 mb-1";
+            } else if (response == 3) {
+                document.getElementById("btn" + id).innerHTML = "Shipping";
+                document.getElementById("btn" + id).classList = "btn btn-outline-primary fw-bold mt-1 mb-1";
+            } else if (response == 4) {
+                document.getElementById("btn" + id).innerHTML = "Delivered";
+                document.getElementById("btn" + id).classList = "btn btn-outline-danger fw-bold mt-1 mb-1 disabled";
+            } else {
 
-    request.open("POST", "sendAdminMsgProcess.php", true);
-    request.send(form);
+            }
+        }
+    };
+
+    request.open("GET", "chaneInvoiceStatusProcess.php?id=" + id, true);
+    request.send();
+
+}
+
+function searchInvoice() {
+
+    var txt = document.getElementById("searchTxt").value;
+
+    var request = new XMLHttpRequest;
+
+    request.onreadystatechange = function () {
+        if (request.readyState == 4) {
+            var response = request.responseText;
+            if (response == "Success") {
+                document.getElementById("viewArea").innerHTML = response;
+            } else {
+                alert(response);
+            }
+        }
+    };
+
+    request.open("GET", "searchInvoiceIdProcess.php?id=" + txt, true);
+    request.send();
+
+}
+
+function findSellings() {
+
+    var from = document.getElementById("from").value;
+    var to = document.getElementById("to").value;
+
+    var request = new XMLHttpRequest;
+
+    request.onreadystatechange = function () {
+        if (request.readyState == 4) {
+            var response = request.responseText;
+            if (response == "Success") {
+                document.getElementById("viewArea").innerHTML = response;
+            } else {
+                alert(response);
+            }
+        }
+    };
+
+    request.open("GET", "findSellingProcess.php?f=" + from + "&t=" + to, true);
+    request.send();
+
 
 }
 
 var cam;
 function contactAdmin() {
+
     var m = document.getElementById("contactAdmin");
     cam = new bootstrap.Modal(m);
     cam.show();
+
 }
 
 function sendAdminMsg() {
-    var txt = document.getElementById("msgtxt");
+
+    var txt = document.getElementById("msgTxt").value;
 
     var form = new FormData();
-    form.append("t", txt.value);
+    form.append("t", txt)
 
-    var request = new XMLHttpRequest();
+    var request = new XMLHttpRequest;
 
     request.onreadystatechange = function () {
-        if (request.status == 200 & request.readyState == 4) {
+        if (request.readyState == 4) {
             var response = request.responseText;
-            if (response == "success") {
-                window.location.reload();
-            }
+            alert(response);
         }
-    }
+    };
 
-    request.open("POST", "sendAdminMsgProcess.php", true);
+    request.open("POST", "sendAdminMassegeProcess.php", true);
     request.send(form);
 
 }
 
-function searchInvoice() {
-    var txt = document.getElementById("searchtxt").value;
 
-    var request = new XMLHttpRequest();
+function sendAdminMsg(email) {
 
-    request.onreadystatechange = function () {
-        if (request.status == 200 & request.readyState == 4) {
-            var response = request.responseText;
-            document.getElementById("viewArea").innerHTML = response;
-        }
-    }
+    var txt = document.getElementById("msgTxt").value;
 
-    request.open("GET", "searchInvoiceProcess.php?id=" + txt, true);
-    request.send();
-}
+    var form = new FormData();
+    form.append("t", txt);
+    form.append("r", email);
 
-function findsellings() {
-
-    var from = document.getElementById("from").value;
-    var to = document.getElementById("to").value;
-
-    var request = new XMLHttpRequest();
+    var request = new XMLHttpRequest;
 
     request.onreadystatechange = function () {
-        if (request.status == 200 & request.readyState == 4) {
+        if (request.readyState == 4) {
             var response = request.responseText;
-            document.getElementById("viewArea").innerHTML = response;
+            alert(response);
         }
-    }
+    };
 
-    request.open("GET", "findSellingsProcess.php?f=" + from + "&t=" + to, true);
-    request.send();
-
-}
-
-function changeInvoiceStatus(id) {
-
-    var request = new XMLHttpRequest();
-
-    request.onreadystatechange = function () {
-        if (request.status == 200 & request.readyState == 4) {
-            var response = request.responseText;
-            if (response == "success") {
-                window.location.reload();
-            } else {
-                alert(response);
-            }
-        }
-    }
-
-    request.open("GET", "changeInvoiceStatusProcess.php?id=" + id, true);
-    request.send();
+    request.open("POST", "sendAdminMassegeProcess.php", true);
+    request.send(form);
 
 }

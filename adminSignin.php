@@ -54,7 +54,7 @@
                 </div>
             </div>
 
-            <!--  -->
+            <!-- modal -->
 
             <div class="modal" tabindex="-1" id="verificationModal">
                 <div class="modal-dialog">
@@ -75,7 +75,7 @@
                 </div>
             </div>
 
-            <!--  -->
+            <!-- modal -->
 
             <div class="col-12 fixed-bottom text-center">
                 <p>&copy; 2022 eShop.lk | All Rights Reserved</p>

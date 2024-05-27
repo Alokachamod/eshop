@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+
 <html>
 
 <head>
@@ -18,13 +19,11 @@
 
     <div class="container-fluid">
         <div class="row gy-3">
-            <?php
-
-            include "header.php";
+            <?php 
+            
+            include "header.php";            
 
             if (isset($_SESSION["u"])) {
-
-                include "connection.php";
 
             ?>
 
@@ -46,20 +45,20 @@
                                         </div>
 
                                         <div class="col-12">
-                                            <select class="form-select text-center" id="category">
+                                            <select class="form-select text-center" id="category" onchange="load_brand();">
                                                 <option value="0">Select Category</option>
                                                 <?php
+
                                                 $category_rs = Database::search("SELECT * FROM `category`");
                                                 $category_num = $category_rs->num_rows;
 
                                                 for ($x = 0; $x < $category_num; $x++) {
                                                     $category_data = $category_rs->fetch_assoc();
                                                 ?>
-                                                    <option value="<?php echo $category_data["cat_id"]; ?>">
-                                                        <?php echo $category_data["cat_name"]; ?>
-                                                    </option>
+                                                    <option value="<?php echo $category_data["id"]; ?>"><?php echo $category_data["name"]; ?></option>
                                                 <?php
                                                 }
+
                                                 ?>
                                             </select>
                                         </div>
@@ -78,17 +77,17 @@
                                             <select class="form-select text-center" id="brand">
                                                 <option value="0">Select Brand</option>
                                                 <?php
+
                                                 $brand_rs = Database::search("SELECT * FROM `brand`");
                                                 $brand_num = $brand_rs->num_rows;
 
-                                                for ($x = 0; $x < $brand_num; $x++) {
+                                                for ($y = 0; $y < $brand_num; $y++) {
                                                     $brand_data = $brand_rs->fetch_assoc();
                                                 ?>
-                                                    <option value="<?php echo $brand_data["brand_id"]; ?>">
-                                                        <?php echo $brand_data["brand_name"]; ?>
-                                                    </option>
+                                                    <option value="<?php echo $brand_data["id"]; ?>"><?php echo $brand_data["name"]; ?></option>
                                                 <?php
                                                 }
+
                                                 ?>
                                             </select>
                                         </div>
@@ -107,17 +106,17 @@
                                             <select class="form-select text-center" id="model">
                                                 <option value="0">Select Model</option>
                                                 <?php
+
                                                 $model_rs = Database::search("SELECT * FROM `model`");
                                                 $model_num = $model_rs->num_rows;
 
-                                                for ($x = 0; $x < $model_num; $x++) {
+                                                for ($z = 0; $z < $model_num; $z++) {
                                                     $model_data = $model_rs->fetch_assoc();
                                                 ?>
-                                                    <option value="<?php echo $model_data["model_id"]; ?>">
-                                                        <?php echo $model_data["model_name"]; ?>
-                                                    </option>
+                                                    <option value="<?php echo $model_data["id"]; ?>"><?php echo $model_data["name"]; ?></option>
                                                 <?php
                                                 }
+
                                                 ?>
                                             </select>
                                         </div>
@@ -137,7 +136,7 @@
                                             </label>
                                         </div>
                                         <div class="offset-0 offset-lg-2 col-12 col-lg-8">
-                                            <input type="text" class="form-control" id="title"/>
+                                            <input type="text" class="form-control" id="title" />
                                         </div>
                                     </div>
                                 </div>
@@ -156,11 +155,11 @@
                                                 </div>
                                                 <div class="col-12">
                                                     <div class="form-check form-check-inline mx-5">
-                                                        <input class="form-check-input" type="radio" name="c" id="b" checked />
+                                                        <input class="form-check-input" type="radio" id="b" name="c" checked />
                                                         <label class="form-check-label fw-bold" for="b">Brandnew</label>
                                                     </div>
                                                     <div class="form-check form-check-inline">
-                                                        <input class="form-check-input" type="radio" name="c" id="u"/>
+                                                        <input class="form-check-input" type="radio" id="u" name="c" />
                                                         <label class="form-check-label fw-bold" for="u">Used</label>
                                                     </div>
                                                 </div>
@@ -169,36 +168,37 @@
 
                                         <div class="col-12 col-lg-4 border-end border-success">
                                             <div class="row">
-
                                                 <div class="col-12">
                                                     <label class="form-label fw-bold" style="font-size: 20px;">Select Product Colour</label>
                                                 </div>
-
                                                 <div class="col-12">
 
-                                                    <select class="col-12 form-select" id="clr">
+                                                    <select class="form-select " id="clr">
                                                         <option value="0">Select Colour</option>
+
                                                         <?php
-                                                        $clr_rs = Database::search("SELECT * FROM `color`");
+
+                                                        $clr_rs = Database::search("SELECT * FROM `colour`");
                                                         $clr_num = $clr_rs->num_rows;
 
-                                                        for ($x = 0; $x < $clr_num; $x++) {
+                                                        for ($a = 0; $a < $clr_num; $a++) {
                                                             $clr_data = $clr_rs->fetch_assoc();
                                                         ?>
-                                                            <option value="<?php echo $clr_data["clr_id"]; ?>">
-                                                                <?php echo $clr_data["clr_name"]; ?>
-                                                            </option>
+
+                                                            <option value="<?php echo $clr_data["id"]; ?>"><?php echo $clr_data["name"]; ?></option>
+
                                                         <?php
                                                         }
-                                                        ?>
-                                                    </select>
 
+                                                        ?>
+
+                                                    </select>
                                                 </div>
 
                                                 <div class="col-12">
                                                     <div class="input-group mt-2 mb-2">
-                                                        <input type="text" class="form-control" placeholder="Add new Colour" />
-                                                        <button class="btn btn-outline-primary" type="button">+ Add</button>
+                                                        <input type="text" class="form-control" placeholder="Add new Colour" id="clr_in" />
+                                                        <button class="btn btn-outline-primary" type="button" id="button-addon2"> Add</button>
                                                     </div>
                                                 </div>
                                             </div>
@@ -210,7 +210,7 @@
                                                     <label class="form-label fw-bold" style="font-size: 20px;">Add Product Quantity</label>
                                                 </div>
                                                 <div class="col-12">
-                                                    <input type="number" class="form-control" value="0" min="0" id="qty"/>
+                                                    <input type="number" class="form-control" value="0" min="0" id="qty" />
                                                 </div>
                                             </div>
                                         </div>
@@ -233,7 +233,7 @@
                                                 <div class="offset-0 offset-lg-2 col-12 col-lg-8">
                                                     <div class="input-group mb-2 mt-2">
                                                         <span class="input-group-text">Rs.</span>
-                                                        <input type="text" class="form-control" id="cost"/>
+                                                        <input type="text" class="form-control" id="cost" />
                                                         <span class="input-group-text">.00</span>
                                                     </div>
                                                 </div>
@@ -276,7 +276,7 @@
                                                 <div class="col-12 col-lg-8">
                                                     <div class="input-group mb-2 mt-2">
                                                         <span class="input-group-text">Rs.</span>
-                                                        <input type="text" class="form-control" id="dwc"/>
+                                                        <input type="text" class="form-control" id="dwc" />
                                                         <span class="input-group-text">.00</span>
                                                     </div>
                                                 </div>
@@ -290,7 +290,7 @@
                                                 <div class="col-12 col-lg-8">
                                                     <div class="input-group mb-2 mt-2">
                                                         <span class="input-group-text">Rs.</span>
-                                                        <input type="text" class="form-control" id="doc"/>
+                                                        <input type="text" class="form-control" id="doc" />
                                                         <span class="input-group-text">.00</span>
                                                     </div>
                                                 </div>
@@ -326,18 +326,18 @@
                                         <div class="offset-lg-3 col-12 col-lg-6">
                                             <div class="row">
                                                 <div class="col-4 border border-primary rounded">
-                                                    <img src="resource/addproductimg.svg" class="img-fluid" style="width: 250px;" id="i0"/>
+                                                    <img src="resource/addproductimg.svg" class="img-fluid" style="height: 300px;" id="i0" />
                                                 </div>
                                                 <div class="col-4 border border-primary rounded">
-                                                    <img src="resource/addproductimg.svg" class="img-fluid" style="width: 250px;" id="i1"/>
+                                                    <img src="resource/addproductimg.svg" class="img-fluid" style="height: 300px;" id="i1" />
                                                 </div>
                                                 <div class="col-4 border border-primary rounded">
-                                                    <img src="resource/addproductimg.svg" class="img-fluid" style="width: 250px;" id="i2"/>
+                                                    <img src="resource/addproductimg.svg" class="img-fluid" style="height: 300px;" id="i2" />
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="offset-lg-3 col-12 col-lg-6 d-grid mt-3">
-                                            <input type="file" class="d-none" multiple id="imageuploader"/>
+                                            <input type="file" class="d-none" id="imageuploader" multiple />
                                             <label for="imageuploader" class="col-12 btn btn-primary" onclick="changeProductImage();">Upload Images</label>
                                         </div>
                                     </div>
@@ -368,7 +368,7 @@
             <?php
 
             } else {
-                header("Location: home.php");
+                header("Location:home.php");
             }
 
             ?>

@@ -1,7 +1,8 @@
 <?php
 
 session_start();
-include "connection.php";
+
+require "connection.php";
 
 if (isset($_SESSION["au"])) {
 
@@ -41,7 +42,7 @@ if (isset($_SESSION["au"])) {
                                     <nav class="nav flex-column">
                                         <a class="nav-link active" aria-current="page" href="#">Dashboard</a>
                                         <a class="nav-link" href="manageUsers.php">Manage Users</a>
-                                        <a class="nav-link" href="manageProducts.php">Manage Products</a>
+                                        <a class="nav-link" href="manageProduct.php">Manage Products</a>
                                     </nav>
                                 </div>
                                 <div class="col-12 mt-5">
@@ -54,7 +55,7 @@ if (isset($_SESSION["au"])) {
                                     <input type="date" class="form-control" />
                                     <label class="form-label fs-6 fw-bold text-white mt-2">To Date</label>
                                     <input type="date" class="form-control" />
-                                    <a href="#" class="btn btn-primary mt-2">Search</a>
+                                    <a href="sellingHistory.php" class="btn btn-primary mt-2">Search</a>
                                     <hr class="border border-1 border-white" />
                                     <label class="form-label fs-6 fw-bold text-white">Daily Sellings</label>
                                     <hr class="border border-1 border-white" />
@@ -82,7 +83,7 @@ if (isset($_SESSION["au"])) {
                                         <div class="col-12 bg-primary text-white text-center rounded" style="height: 100px;">
                                             <br />
                                             <span class="fs-4 fw-bold">Daily Earnings</span>
-
+                                            <br />
                                             <?php
 
                                             $today = date("Y-m-d");
@@ -104,17 +105,17 @@ if (isset($_SESSION["au"])) {
                                                 $f = $f + $invoice_data["qty"]; //total qty
 
                                                 $d = $invoice_data["date"];
-                                                $splitDate = explode(" ", $d); //separate the date from time
-                                                $pdate = $splitDate["0"]; //sold date
+                                                $splitDate = explode(" ", $d); //separate date from time
+                                                $pdate = $splitDate[0]; //sold date
 
                                                 if ($pdate == $today) {
                                                     $a = $a + $invoice_data["total"];
                                                     $c = $c + $invoice_data["qty"];
                                                 }
 
-                                                $splitMonth = explode("-", $pdate); //separate date as year,month & day
-                                                $pyear = $splitMonth["0"]; //year
-                                                $pmonth = $splitMonth["1"]; //month
+                                                $splitMonth = explode("-", $pdate); //separate date as year,month & date
+                                                $pyear = $splitMonth[0]; //year
+                                                $pmonth = $splitMonth[1]; //month
 
                                                 if ($pyear == $thisyear) {
                                                     if ($pmonth == $thismonth) {
@@ -125,8 +126,6 @@ if (isset($_SESSION["au"])) {
                                             }
 
                                             ?>
-
-                                            <br />
                                             <span class="fs-5">Rs. <?php echo $a; ?> .00</span>
                                         </div>
                                     </div>
@@ -205,27 +204,26 @@ if (isset($_SESSION["au"])) {
                                     <label class="form-label fs-4 fw-bold text-white">Total Active Time</label>
                                 </div>
                                 <div class="col-12 col-lg-10 text-center my-3">
-
                                     <?php
 
-                                    $start_date = new DateTime("2023-12-15 19:00:00");
+                                    $start_date = new DateTime("2022-09-27 00:00:00");
 
                                     $tdate = new DateTime();
                                     $tz = new DateTimeZone("Asia/Colombo");
                                     $tdate->setTimezone($tz);
+
                                     $end_date = new DateTime($tdate->format("Y-m-d H:i:s"));
 
                                     $difference = $end_date->diff($start_date);
 
                                     ?>
-
                                     <label class="form-label fs-4 fw-bold text-warning">
                                         <?php
+
                                         echo $difference->format('%Y') . " Years " . $difference->format('%m') . " Months " .
                                             $difference->format('%d') . " Days " . $difference->format('%H') . " Hours " .
-                                            $difference->format('%i') . " Minutes " . $difference->format('%s') . " Seconds";
+                                            $difference->format('%i') . " Minutes " . $difference->format('%s') . " Seconds ";
                                         ?>
-
                                     </label>
                                 </div>
                             </div>
@@ -236,31 +234,26 @@ if (isset($_SESSION["au"])) {
                                 <div class="col-12 text-center">
                                     <label class="form-label fs-4 fw-bold text-decoration-underline">Mostly Sold Item</label>
                                 </div>
-
                                 <?php
 
-                                $freq_rs = Database::search("SELECT `product_id`,COUNT(`product_id`) AS `value_occurence` FROM `invoice` 
-                                WHERE `date` LIKE '%" . $today . "%' GROUP BY `product_id` ORDER BY `value_occurence` DESC LIMIT 1");
+                                $freq_rs = Database::search("SELECT `product_id`,COUNT(`product_id`) AS `value_occurence` FROM `invoice` WHERE `date` LIKE '%" . $today . "%' GROUP BY `product_id` ORDER BY `value_occurence` DESC LIMIT 1");
 
                                 $freq_num = $freq_rs->num_rows;
-
                                 if ($freq_num > 0) {
-
                                     $freq_data = $freq_rs->fetch_assoc();
 
                                     $product_rs = Database::search("SELECT * FROM `product` WHERE `id`='" . $freq_data["product_id"] . "'");
                                     $product_data = $product_rs->fetch_assoc();
 
-                                    $image_rs = Database::search("SELECT * FROM `product_img` WHERE `product_id`='" . $freq_data["product_id"] . "'");
+                                    $image_rs = Database::search("SELECT * FROM `images` WHERE `product_id`='" . $freq_data["product_id"] . "'");
                                     $image_data = $image_rs->fetch_assoc();
 
-                                    $qty_rs = Database::search("SELECT SUM(`qty`) AS `qty_total` FROM `invoice` WHERE 
-                                    `product_id`='" . $freq_data["product_id"] . "' AND `date` LIKE '%" . $today . "%'");
+                                    $qty_rs = Database::search("SELECT SUM(`qty`) AS `qty_total` FROM `invoice` WHERE `product_id`='" . $freq_data["product_id"] . "' AND `date` LIKE '%" . $today . "%'");
                                     $qty_data = $qty_rs->fetch_assoc();
 
                                 ?>
                                     <div class="col-12 text-center shadow">
-                                        <img src="<?php echo $image_data["img_path"]; ?>" class="img-fluid rounded-top" style="height: 250px;" />
+                                        <img src="<?php echo $image_data["code"]; ?>" class="img-fluid rounded-top" style="height: 250px;" />
                                     </div>
                                     <div class="col-12 text-center my-3">
                                         <span class="fs-5 fw-bold"><?php echo $product_data["title"]; ?></span><br />
@@ -271,7 +264,6 @@ if (isset($_SESSION["au"])) {
 
                                 } else {
                                 ?>
-                                    <!-- empty product -->
                                     <div class="col-12 text-center shadow">
                                         <img src="resource/empty.svg" class="img-fluid rounded-top" style="height: 250px;" />
                                     </div>
@@ -280,7 +272,6 @@ if (isset($_SESSION["au"])) {
                                         <span class="fs-6">--- items</span><br />
                                         <span class="fs-6">Rs. ----- .00</span>
                                     </div>
-                                    <!-- empty product -->
                                 <?php
                                 }
 
@@ -294,12 +285,10 @@ if (isset($_SESSION["au"])) {
 
                         <div class="offset-1 col-10 col-lg-4 my-3 rounded bg-body">
                             <div class="row g-1">
-
                                 <?php
-
                                 if ($freq_num > 0) {
 
-                                    $profile_rs = Database::search("SELECT * FROM `profile_img` WHERE `user_email`='" . $product_data["user_email"] . "'");
+                                    $profile_rs = Database::search("SELECT * FROM `profile_image` WHERE `user_email`='" . $product_data["user_email"] . "'");
                                     $profile_data = $profile_rs->fetch_assoc();
 
                                     $user_rs1 = Database::search("SELECT * FROM `user` WHERE `email`='" . $product_data["user_email"] . "'");
@@ -307,10 +296,10 @@ if (isset($_SESSION["au"])) {
 
                                 ?>
                                     <div class="col-12 text-center">
-                                        <label class="form-label fs-4 fw-bold text-decoration-underline">Most Famouse Seller</label>
+                                        <label class="form-label fs-4 fw-bold text-decoration-underline">Most Famous Seller</label>
                                     </div>
                                     <div class="col-12 text-center shadow">
-                                        <img src="resource/new_user.svg" class="img-fluid rounded-top" style="height: 250px;" />
+                                        <img src="<?php echo $profile_data["path"]; ?>" class="img-fluid rounded-top" style="height: 250px;" />
                                     </div>
                                     <div class="col-12 text-center my-3">
                                         <span class="fs-5 fw-bold"><?php echo $user_data1["fname"]." ".$user_data1["lname"]; ?></span><br />
@@ -320,9 +309,8 @@ if (isset($_SESSION["au"])) {
                                 <?php
                                 } else {
                                 ?>
-                                    <!-- empty user -->
                                     <div class="col-12 text-center">
-                                        <label class="form-label fs-4 fw-bold text-decoration-underline">Most Famouse Seller</label>
+                                        <label class="form-label fs-4 fw-bold text-decoration-underline">Most Famous Seller</label>
                                     </div>
                                     <div class="col-12 text-center shadow">
                                         <img src="resource/new_user.svg" class="img-fluid rounded-top" style="height: 250px;" />
@@ -332,9 +320,9 @@ if (isset($_SESSION["au"])) {
                                         <span class="fs-6">-----</span><br />
                                         <span class="fs-6">----------</span>
                                     </div>
-                                    <!-- empty user -->
                                 <?php
                                 }
+
 
                                 ?>
 
@@ -359,7 +347,7 @@ if (isset($_SESSION["au"])) {
 <?php
 
 } else {
-    echo ("You are not a valid user.");
+    echo ("You are Not a valid user");
 }
 
 ?>
