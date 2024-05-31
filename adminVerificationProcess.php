@@ -25,12 +25,12 @@ if (isset($_POST["e"])) {
         // $mail->SMTPDebug = 3;
         $mail->Host = 'smtp.gmail.com';
         $mail->SMTPAuth = true;
-        $mail->Username = 'singlefighter2004@gmail.com';
-        $mail->Password = 'snesdkluzbnrdtsa';
+        $mail->Username = 'alokachamod3@gmail.com';
+        $mail->Password = 'pmjz vtrm gaol fdpu';
         $mail->SMTPSecure = 'ssl';
         $mail->Port = 465;
-        $mail->setFrom('singlefighter2004@gmail.com', 'Admin Verification');
-        $mail->addReplyTo('singlefighter2004@gmail.com', 'Admin Verification');
+        $mail->setFrom('alokachamod3@gmail.com', 'Admin Verification');
+        $mail->addReplyTo('alokachamod3@gmail.com', 'Admin Verification');
         $mail->addAddress($email);
         $mail->isHTML(true);
         $mail->Subject = 'eShop Admin Login Verification Code';
