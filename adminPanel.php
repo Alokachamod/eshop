@@ -35,8 +35,7 @@ if (isset($_SESSION["au"])) {
                             <div class="row g-1 text-center">
 
                                 <div class="col-12 mt-5">
-                                    <h4 class="text-white"><?php echo $_SESSION["au
-                                    "]["user_name"] ; ?></h4>
+                                    <h4 class="text-white"><?php echo $_SESSION["au"]["user_name"] ; ?></h4>
                                     <hr class="border border-1 border-white" />
                                 </div>
                                 <div class="nav flex-column nav-pills me-3 mt-3" role="tablist" aria-orientation="vertical">
