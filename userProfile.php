@@ -164,7 +164,7 @@
                                             ?>
                                                 <div class="col-12">
                                                     <label class="form-label">Address Line 2</label>
-                                                    <input type="text" class="form-control" value="<?php echo $address_data["line2"]; ?>" id="line2" />
+                                                    <input type="text" class="form-control" id="line2" />
                                                 </div>
                                             <?php
 
