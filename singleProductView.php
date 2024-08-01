@@ -67,7 +67,7 @@ if (isset($_GET["id"])) {
                                             ?>
 
                                                     <li class="d-flex flex-column justify-content-center align-items-center border border-1 border-secondary mb-1">
-                                                        <img src="<?php echo $img["$x"]; ?>" style="height: 200px;" class="img-thumbnail mt-1 mb-1" id="productImg<?php echo $x; ?>" onclick="loadMainImg(<?php echo $x; ?>);" />
+                                                        <img src="<?php 4 ?>" style="height: 200px;" class="img-thumbnail mt-1 mb-1" id="productImg<?php echo $x; ?>" onclick="loadMainImg(<?php echo $x; ?>);" />
                                                     </li>
 
                                                 <?php
